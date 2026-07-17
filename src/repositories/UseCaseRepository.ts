@@ -1,12 +1,17 @@
-import { Repository } from './Repository';
-import { API_ENDPOINTS } from '../config/api';
+import { Repository } from "./Repository";
+import { API_ENDPOINTS } from "../config/api";
 
 export class UseCaseRepository extends Repository {
   /**
    * Get use cases by village ID and category (e.g. 'IoT' or 'non IoT')
    */
-  public async getByCategory(villageId: string, category: string): Promise<any> {
-    return this.get<any>(API_ENDPOINTS.USE_CASE.BY_CATEGORY(villageId, category));
+  public async getByCategory(
+    villageId: string,
+    category: string,
+  ): Promise<any> {
+    return this.get<any>(
+      API_ENDPOINTS.USE_CASE.BY_CATEGORY(villageId, category),
+    );
   }
 
   /**
@@ -29,6 +34,19 @@ export class UseCaseRepository extends Repository {
   public async getCoordinates(villageId: string): Promise<any> {
     return this.get<any>(API_ENDPOINTS.USE_CASE.COORDINATES(villageId));
   }
+  /**
+   * Submit telemetry data for a Non-IoT entity
+   */
+  public async addTelemetry(
+    assignmentId: string,
+    entityId: string,
+    data: Record<string, any>,
+  ): Promise<any> {
+    return this.post<any>(
+      API_ENDPOINTS.TELEMETRY.ADD(assignmentId, entityId),
+      data,
+    );
+  }
 
   // --- Admin CRUD Operations ---
 
@@ -38,7 +56,7 @@ export class UseCaseRepository extends Repository {
 
   public async createUseCase(formData: FormData): Promise<any> {
     return this.post<any>(API_ENDPOINTS.USE_CASE_ADMIN.BASE, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { "Content-Type": "multipart/form-data" },
     });
   }
 
