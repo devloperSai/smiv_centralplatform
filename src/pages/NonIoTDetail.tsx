@@ -106,16 +106,17 @@ export default function NonIoTDetail() {
         )}
       </div>
 
-      {editableFields.length > 0 && (
-        <SubmitDataDialog
-          open={isDialogOpen}
-          onOpenChange={setIsDialogOpen}
-          assignmentId={id as string}
-          entityId={entityId}
-          useCaseName={name}
-          editableFields={editableFields}
-        />
-      )}
+      {/* Data entry dialog — field set is resolved per use case (see
+          src/data/nonIotFieldConfig.ts), independent of whatever the API
+          happens to return for `editableFields`. */}
+      <SubmitDataDialog
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        assignmentId={id as string}
+        entityId={entityId}
+        useCaseName={name}
+        editableFields={editableFields}
+      />
 
       {/* Entity Table */}
       {entities.length > 0 && (
